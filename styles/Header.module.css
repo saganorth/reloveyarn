@@ -1,0 +1,78 @@
+.header {
+    background-color: #333; /* Mörk bakgrundsfärg */
+    color: white; /* Vit textfärg */
+    padding: 10px 20px; /* Padding runt headern */
+    display: flex; /* Använd flexbox för layout */
+    align-items: center; /* Centrera element vertikalt */
+    justify-content: space-between; /* Utrymme mellan logotyp och navigationslänkar */
+  }
+  
+  .navbar {
+    display: flex;
+    align-items: center;
+  }
+  
+  .homeLink {
+    color: white; /* Vit färg för länktext */
+    font-size: 1.2rem; /* Större text för länken */
+    cursor: pointer; /* Markera som klickbar */
+    margin-right: 20px; /* Avstånd till nästa element */
+    text-decoration: none; /* Inga understrykningar */
+  }
+  
+  .header h1 {
+    font-size: 1.5rem; /* Större text för huvudtiteln */
+    margin: 0; /* Ta bort standardmarginaler */
+  }
+  
+  /* Responsiv design för mindre skärmar */
+  @media (max-width: 600px) {
+    .header {
+      flex-direction: column; /* Stapla elementen vertikalt */
+      padding: 10px;
+    }
+  
+    .homeLink {
+      margin-bottom: 10px; /* Avstånd under länken */
+    }
+  
+    .header h1 {
+      font-size: 1.3rem;
+    }
+  }
+  /* Header.module.css */
+
+/* Dina befintliga stilar... */
+
+.dropdownContainer {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdownButton {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .dropdownMenu {
+    display: block;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  
+  .dropdownItem {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  .dropdownItem:hover {
+    background-color: #f1f1f1;
+  }
+  
