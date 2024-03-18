@@ -1,6 +1,6 @@
 import React from 'react';
 
-const HomePage = () => {
+const aboutPage = () => {
   return (
     <main className="bg-violet-200 text-white">
       {/* Stor Bildsektion */}
@@ -33,4 +33,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default aboutPage;

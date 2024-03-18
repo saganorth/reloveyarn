@@ -1,35 +1,35 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Link from 'next/link';
-import styles from '../../styles/Header.module.css';
 
-const Header = () => {
-  const [dropdownVisible, setDropdownVisible] = useState(false);
-
-  const toggleDropdown = () => {
-    setDropdownVisible(!dropdownVisible);
-  };
-
+const Header: React.FC = () => {
   return (
-    <header className={styles.header}>
-      <nav className={styles.navbar}>
-     
-        
-        <div className={styles.dropdownContainer}>
-          <button onClick={toggleDropdown} className={styles.dropdownButton}> <i className="fa fa-bars"></i></button>
-          {dropdownVisible && (
-            <div className={styles.dropdownMenu}>
-              <Link href="/category1"><div className={styles.dropdownItem}>Kategori 1</div></Link>
-              <Link href="/category2"><div className={styles.dropdownItem}>Kategori 2</div></Link>
-              {/* Fler länkar */}
-            </div>
-          )}
+    <header className="bg-purple-200 py-4">
+      <nav className="container mx-auto px-6 flex items-center justify-between">
+        {/* Site Title */}
+        <div className="flex items-center justify-start">
+          <Link href="/">
+            <div className="text-xl font-semibold text-purple-600 hover:text-purple-800">ReLoveYarn</div>
+          </Link>
         </div>
-        <Link href="/">
-        <h1 className={styles.headerTitle}>ReLoveYarn</h1>
-        </Link>
-        <Link href="/cart">
-          <div className={styles.cartLink}>Cart</div>
-        </Link>
+
+        {/* Navigation Links */}
+        <div className="flex items-center space-x-10">
+          <Link href="/Product">
+            <div className="text-lg text-purple-600 hover:text-purple-800">Shop</div>
+          </Link>
+          <Link href="/about">
+            <div className="text-lg text-purple-600 hover:text-purple-800">About Us</div>
+          </Link>
+        </div>
+
+        {/* Cart Icon */}
+        <div className="flex items-center justify-end">
+          <Link href="/cart">
+            <div className="text-purple-600 hover:text-purple-800">
+              <i className="fas fa-shopping-cart text-3xl"></i>
+            </div>
+          </Link>
+        </div>
       </nav>
     </header>
   );
