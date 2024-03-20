@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import ProductList from '../../component/ProductList';
-import { Product } from '../../models/product'; 
+import { Products } from '../../models/product'; 
 
 const ProductsPage = () => {
-  const [products, setProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState<Products[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -17,14 +17,18 @@ const ProductsPage = () => {
         if (!response.ok) {
           throw new Error(data.message || 'Error fetching products');
         }
-        setProducts(data);
+        // Merge all categories into a single array
+        const allProducts = [...data.filtar, ...data.mossor, ...data.vaskor, ...data.balaklava];
+        setProducts(allProducts);
       } catch (error: any) {
         setError(error.message);
+      } finally {
+        setIsLoading(false);
       }
-      setIsLoading(false);
     };
     fetchProducts();
   }, []);
+  
 
   if (isLoading) {
     return <div>Loading...</div>;
