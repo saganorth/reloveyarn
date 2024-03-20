@@ -1,8 +1,8 @@
-export interface Product {
-    id: number;
-    name: string;
-    pris: number;
-    imageUrl: string;
-    beskrivning: number; 
-    mått: string; 
-  }
+export type Product = {
+  id: number;
+  namn: string;
+  imageUrl: string;
+  beskrivning: string;
+  mått: string; 
+  pris: number; 
+};
