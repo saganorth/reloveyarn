@@ -1,17 +1,17 @@
+
 import React from 'react';
-import Cart from '../../component/Cart';
 import Header from '../../component/ui/Header';
 import Footer from '../../component/ui/Footer';
+import AboutInfo from '@/src/component/about';
 
-const CartPage = () => {
+
+const aboutPage = () => {
   return (
     <div>
-        <Header/>
-
-      <Cart />
-      <Footer/>
+      <Header />
+      <AboutInfo />
+      <Footer />
     </div>
   );
 };
-
-export default CartPage;
+export default aboutPage;

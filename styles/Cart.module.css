@@ -1,120 +1,112 @@
 .cartPage {
-    background-color: #fff4e6; 
-    padding: 20px;
-    min-height: 100vh;
-    font-family: 'Dancing Script', cursive; 
+  background-color: #ffe4e1; /* Soft pink background */
+  padding: 20px;
+  min-height: 100vh;
+  font-family: 'Poppins', sans-serif; /* Modern and rounded font */
+}
+
+.cartHeader {
+  background-color: #f06292; /* Brighter pink for a lively look */
+  color: #fff;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  padding: 10px;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.cartList {
+  list-style: none;
+  padding: 0;
+}
+
+.cartItem {
+  background-color: white;
+  border: 2px solid #fadadd; /* Light pink border */
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 12px; /* More rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.cartItemName {
+  font-weight: bold;
+  color: #f06292; /* Echoing the header color */
+}
+
+.cartItemPrice {
+  color: #f48fb1; /* Softer pink variant */
+}
+
+.removeButton {
+  background-color: #ec407a; /* Slightly deeper pink than header */
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+  margin-left: 10px;
+  border-radius: 8px; /* Rounded corners for the buttons */
+}
+
+.removeButton:hover {
+  background-color: #c2185b; /* Darker pink on hover */
+}
+
+.totalPrice {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #f48fb1; /* Soft pink for consistency */
+  margin-top: 20px;
+}
+
+.checkoutButton,
+.continueShopping {
+  display: inline-block;
+  margin-top: 20px;
+  cursor: pointer;
+  padding: 10px 20px;
+  color: white;
+  text-align: center;
+  border-radius: 8px; /* Matching button radius */
+}
+
+.checkoutButton {
+  background-color: #ab47bc; /* Gentle purple */
+}
+
+.checkoutButton:hover {
+  background-color: #7b1fa2; /* Darker purple on hover */
+}
+
+.continueShopping {
+  background-color: #ffab91; /* Light coral for a vibrant contrast */
+}
+
+.continueShopping:hover {
+  background-color: #ff8a65; /* Slightly richer coral on hover */
+}
+
+@media (max-width: 768px) {
+  .cartPage {
+    padding: 10px;
   }
-  
+
   .cartHeader {
-    background-color: #d32f2f; 
-    color: #fff;
-    font-size: 2rem;
-    margin-bottom: 1.5rem;
-    text-align: center;
-    font-family: 'Dancing Script', cursive;
-    padding: 10px;
-    border-radius: 15px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    font-size: 1.5rem; /* Slightly smaller for better mobile readability */
   }
-  
-  .cartList {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .cartItem {
-    background-color: white;
-    border: 2px solid #f0e6d6; 
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 8px; 
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); 
-  }
-  
-  .cartItemName {
-    font-weight: bold;
-    color: #006400; 
-  }
-  
-  .cartItemPrice {
-    color: #388e3c; 
-  }
-  .removeButton {
-    background-color: #d32f2f; 
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    cursor: pointer;
-    margin-left: 10px;
-    border-radius: 5px;
-  }
-  
-  .removeButton:hover {
-    background-color: #9a0007; 
-  }
-  
-  .totalPrice {
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #388e3c; 
-    margin-top: 20px;
-  }
-  
+
   .checkoutButton,
   .continueShopping {
-    display: inline-block;
-    margin-top: 20px;
-    cursor: pointer;
-    padding: 10px 20px;
-    color: white;
-    text-align: center;
-    border-radius: 5px; 
+    padding: 8px 16px; 
+    font-size: 0.9rem; 
+    margin-top: 15px;
+    width: auto;
   }
-  
-  .checkoutButton {
-    background-color: #388e3c; 
+
+  .removeButton {
+    padding: 6px 12px; 
+    font-size: 0.8rem; 
   }
-  
-  .checkoutButton:hover {
-    background-color: #1b5e20; 
-  }
-  
-  .continueShopping {
-    background-color: #ffab00; 
-  }
-  
-  .continueShopping:hover {
-    background-color: #c67c00; 
-  }
-  
-  @media (max-width: 768px) {
-    .cartPage {
-      padding: 10px;
-    }
-  
-    .cartHeader {
-      font-size: 1.5rem;
-    }
-  }
-  @media (max-width: 768px) {
-    .cartPage {
-      padding: 10px;
-    }
-  
-    .cartHeader {
-      font-size: 1.5rem;
-    }
-  
-    .checkoutButton,
-    .continueShopping {
-      padding: 8px 16px; 
-      font-size: 0.9rem; 
-      margin-top: 15px;
-      width: auto;
-    }
-  
-    .removeButton {
-      padding: 6px 12px; 
-      font-size: 0.8rem; 
-    }
-  }
+}

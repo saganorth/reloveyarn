@@ -1,21 +1,16 @@
+/* Footer.module.css */
 .footer {
-    background-color: #2a2a2a; /* Mörk bakgrundsfärg */
-    color: #f0f0f0; /* Ljus textfärg */
-    text-align: center; /* Centrerar texten */
-    padding: 20px 0; /* Vertikal padding */
-    font-size: 0.9rem; /* Textstorlek */
-    border-top: 1px solid #444; /* Tunn gränslinje överst */
-    position: relative; /* För att hålla footern längst ner */
-    bottom: 0;
-    width: 100%;
-  }
-  
-  /* Responsiv design för mindre skärmar */
-  @media (max-width: 600px) {
-    .footer {
-      padding: 15px 0;
-      font-size: 0.8rem;
-    }
-  }
-  
-  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  background-color: #e9d5ff; /* Match the header's background color */
+  color: white;
+  gap: 20px; /* Space between text and logo */
+}
+
+.instagramLogo {
+  fill: white;
+  width: 24px; /* Adjust size as needed */
+  height: auto;
+}

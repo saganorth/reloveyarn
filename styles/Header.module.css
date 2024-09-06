@@ -1,50 +1,46 @@
 @font-face {
   font-family: 'ACTlove';
-  src: url('https://www.fontspace.com/actlove-font-f15065') format('woff2'), /* Modern Browsers */
-       url('https://www.fontspace.com/actlove-font-f15065') format('woff'), /* Older browsers */
-       url('https://www.fontspace.com/actlove-font-f15065') format('truetype'); /* Oldest browsers */
+  src: url('/path/to/ACTlove.woff2') format('woff2'),
+       url('/path/to/ACTlove.woff') format('woff'),
+       url('/path/to/ACTlove.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
-
-.title {
-  font-family: 'ACTlove', sans-serif; /* Fallback to sans-serif if ACTlove is not available */
-}
-
 
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #e9d5ff; /* Adjust the color as needed */
-  padding: 1rem;
+  background-color: #e9d5ff; /* Light purple background */
+  padding: 0.5rem 1rem;
 }
 
-.navLinks, .cartIcon {
+.leftNav, .rightNav {
   display: flex;
   align-items: center;
+  margin-left: 10px; 
+  margin-right: 10px; 
+  padding: 10px;
 }
 
-/* If you need to explicitly align text or icons */
-.navLink, .cartIcon a {
-  color: #7e22ce;
+.navLink {
+  color: #7e22ce; /* Purple text for simpler fonts */
   text-decoration: none;
-  padding: 0 0.5rem;
+  margin-right: 1rem; /* Ensures Shop and Cart are not on top of each other */
+  font-family: Arial, sans-serif; /* Simpler font for nav links */
 }
 
-.navLink:hover, .cartIcon a:hover {
-  color: #6d28d9;
+.cartIcon a {
+  color: #7e22ce; 
+  font-size: 1.25rem;
+}
+
+.cartIcon a:hover, .navLink:hover {
+  color: #6d28d9; 
 }
 
 .title {
-  flex-grow: 1;
-  text-align: center;
-  font-size: 1.25rem; /* Adjust the size as needed */
-  font-weight: 600;
-  color: #7e22ce; /* Adjust the color as needed */
-}
-
-/* Ensures flex items are evenly spaced */
-.spacer {
-  flex-grow: 1;
+  font-size: 2.5rem; /* Larger font size for the title */
+  color: #7e22ce; /* Purple text */
+  font-family: 'ACTlove', sans-serif; /* ACTlove font for the title */
 }
