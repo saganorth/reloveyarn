@@ -47,17 +47,24 @@ const ProductsPage: FC<ProductsPageProps> = () => {
   }, [searchQuery]);
 
   const sortedAndFilteredProducts = React.useMemo(() => {
+    console.log("Filtering products", { products, category, debouncedSearchQuery, sortOrder });
+  
     let filteredProducts = products;
-
-    // Filter by category
+  
     if (category !== 'All') {
-      filteredProducts = filteredProducts.filter(product => product.category === category);
+      filteredProducts = filteredProducts.filter(product => {
+        const categoryMatch = product.category === category;
+        console.log("Category Filter", { product, categoryMatch });
+        return categoryMatch;
+      });
     }
-
-    // Search by query
-    filteredProducts = filteredProducts.filter(product => product.namn.toLowerCase().includes(debouncedSearchQuery.toLowerCase()));
-
-    // Sort products
+  
+    filteredProducts = filteredProducts.filter(product => {
+      const nameMatch = product.namn.toLowerCase().includes(debouncedSearchQuery.toLowerCase());
+      console.log("Search Filter", { product, nameMatch });
+      return nameMatch;
+    });
+  
     if (sortOrder === 'latest') {
       filteredProducts.sort((a, b) => b.id - a.id);
     } else if (sortOrder === 'price') {
@@ -65,10 +72,11 @@ const ProductsPage: FC<ProductsPageProps> = () => {
     } else if (sortOrder === 'priceDesc') {
       filteredProducts.sort((a, b) => b.pris - a.pris);
     }
-
+  
+    console.log("Sorted and Filtered Products", filteredProducts);
     return filteredProducts;
   }, [products, sortOrder, debouncedSearchQuery, category]);
-
+  
   if (isLoading) {
     return <div>Loading...</div>;
   }

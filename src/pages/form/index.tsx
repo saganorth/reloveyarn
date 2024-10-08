@@ -27,13 +27,12 @@ const FormPage = () => {
         <div>
             <Header/>
             <FormComponent
-                formData={formData}
-                handleChange={handleChange}
-                handleProductChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
-                    // Implement or call another function here if needed
-                    console.log('Product changed:', e.target.value);
-                }}
-            />
+    formData={formData}
+    handleChange={handleChange}
+    handleProductChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+        console.log('Product changed:', e.target.value);
+    }}
+/>
             <Footer/>
         </div>
     );

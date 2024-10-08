@@ -1,3 +1,16 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+
+@tailwind base;
+
+@tailwind components;
+
+@tailwind utilities;
+
+@font-face {
+    font-family: 'ACTlove';
+    src: url('/fonts/ACTlove.woff2') format('woff2'),
+         url('/fonts/ACTlove.woff') format('woff'),
+         url('/fonts/ACTlove.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  

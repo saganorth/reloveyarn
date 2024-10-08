@@ -4,9 +4,19 @@ import { getFormData } from '../useFormData';
 import FiltForm from './FiltForm';
 import MossaForm from './MossaForm';
 
+import { ChangeEvent } from 'react';
+
 interface FormComponentProps {
-  handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void;
-  handleProductChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+    formData: {
+        product: string;
+        type: string;
+        color: string;
+        yarnType: string;
+        measurements: string;
+        comment: string;
+    };
+    handleChange: (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => void;
+    handleProductChange: (e: ChangeEvent<HTMLSelectElement>) => void;
 }
 
 const FormComponent: React.FC<FormComponentProps> = ({ handleChange, handleProductChange }) => {
@@ -45,9 +55,9 @@ const FormComponent: React.FC<FormComponentProps> = ({ handleChange, handleProdu
   const renderProductSpecificForm = (): JSX.Element | null => {
     switch (productType) {
       case 'filt':
-        return <FiltForm formData={formData} handleChange={handleFormChange} />;
+        return <FiltForm formData={formData} handleChange={handleChange} />;
       case 'mössa':
-        return <MossaForm formData={formData} handleChange={handleFormChange} />;
+        return <MossaForm formData={formData} handleChange={handleChange} />;
       default:
         return null;
     }
