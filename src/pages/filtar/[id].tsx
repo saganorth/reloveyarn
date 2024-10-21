@@ -2,7 +2,7 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import React from 'react';
 import { Products } from '../../models/product';
-import Image from "next/image";
+
 interface ProductProps {
   product: Products | null;
 }

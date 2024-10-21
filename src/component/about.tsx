@@ -1,64 +1,52 @@
-import React, { useState } from 'react';
-import Image from "next/image";
+import React from 'react';
+import Image from 'next/image';
 
-interface FlipState {
-  mission: boolean;
-  founder: boolean;
-}
-
-const AboutInfo: React.FC = () => {
-  const [isFlipped, setIsFlipped] = useState<FlipState>({ mission: false, founder: false });
-
-  const handleFlip = (card: keyof FlipState) => {
-    setIsFlipped(prev => ({ ...prev, [card]: !prev[card] }));
-  };
-
+const About: React.FC = () => {
   return (
-    <main className="min-h-screen bg-[url('/img/scrapbook-bg.jpg')] bg-cover text-gray-800 flex flex-col items-center justify-center p-4 space-y-8">
+    <main className="min-h-screen bg-violet-200 text-gray-800 p-8">
       {/* Mission Section */}
-      <div className="w-full max-w-lg rounded-lg overflow-hidden shadow-2xl bg-white/80 backdrop-blur-sm m-4 relative">
-        <div className="w-full h-full absolute transform transition-transform duration-700 ease-in-out" onClick={() => handleFlip('mission')}>
-          <div className={`absolute inset-0 transition duration-700 ease-in-out ${isFlipped.mission ? 'rotate-y-180' : ''}`}>
-            <div className="bg-white p-6 text-center">
-              <div className="text-xs bg-white rounded-full px-3 py-1 font-semibold text-gray-700 absolute top-0 right-0 m-2">
-                About Us
-              </div>
-              <h1 className="font-bold text-2xl mb-2" style={{ fontFamily: "'Caveat', cursive" }}>Our Mission</h1>
-              <p className="text-gray-700 text-lg" style={{ fontFamily: "'Caveat', cursive" }}>
-                At ReLoveYarn, our commitment is to make slow fashion the first choice for consumers.
-              </p>
-              <p className="text-gray-700 text-lg" style={{ fontFamily: "'Caveat', cursive" }}>
-                We believe in sustainable and ethical practices that benefit both the planet and its people.
-              </p>
-              <p className="text-gray-700 text-lg" style={{ fontFamily: "'Caveat', cursive" }}>
-                By donating 10% of all proceeds to charity, we strive to contribute to positive change in our community and beyond.
-              </p>
-            </div>
+      <section className="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-6 mb-8">
+        <h1 className="text-3xl font-bold mb-4 text-center" style={{ fontFamily: "'Caveat', cursive" }}>Our Mission</h1>
+        <div className="flex flex-col md:flex-row items-center">
+          <div className="md:w-1/2">
+            <Image src="/scrapbook.png" alt="Our Mission" width={500} height={300} className="rounded-lg" />
           </div>
-          <div className={`absolute inset-0 transition duration-700 ease-in-out ${isFlipped.mission ? 'rotate-y-0' : 'rotate-y-180'} rotate-y-180`}>
-            <Image src="/img/filt.jpeg" alt="Our Mission" layout="fill" objectFit="cover" className="w-full h-full" />
+          <div className="md:w-1/2 md:pl-6 mt-4 md:mt-0">
+            <p className="text-lg mb-4" style={{ fontFamily: "'Caveat', cursive" }}>
+              At ReLoveYarn, our commitment is to make slow fashion the first choice for consumers.
+            </p>
+            <p className="text-lg mb-4" style={{ fontFamily: "'Caveat', cursive" }}>
+              We believe in sustainable and ethical practices that benefit both the planet and its people.
+            </p>
+            <p className="text-lg" style={{ fontFamily: "'Caveat', cursive" }}>
+              By donating 10% of all proceeds to charity, we strive to contribute to positive change in our community and beyond.
+            </p>
           </div>
         </div>
-      </div>
+      </section>
 
       {/* Founder Section */}
-      <div className="w-full max-w-lg rounded-lg overflow-hidden shadow-2xl bg-white/80 backdrop-blur-sm m-4 relative">
-        <div className="w-full h-full absolute transform transition-transform duration-700 ease-in-out" onClick={() => handleFlip('founder')}>
-          <div className={`absolute inset-0 transition duration-700 ease-in-out ${isFlipped.founder ? 'rotate-y-180' : ''}`}>
-            <div className="bg-white p-6 text-center">
-              <h2 className="font-bold text-2xl mb-2" style={{ fontFamily: "'Caveat', cursive" }}>About the Founder</h2>
-              <p className="text-gray-700 text-lg" style={{ fontFamily: "'Caveat', cursive" }}>
-                Jane Doe, the founder of ReLoveYarn, has been passionate about sustainable fashion for over a decade. With a background in textile design and a deep commitment to ethical practices, she started ReLoveYarn to make a difference in the fashion industry.
-              </p>
-            </div>
+      <section className="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-6">
+        <h2 className="text-3xl font-bold mb-4 text-center" style={{ fontFamily: "'Caveat', cursive" }}>About the Founder</h2>
+        <div className="flex flex-col md:flex-row items-center">
+          <div className="md:w-1/2">
+            <Image src="/filt.jpeg" alt="About the Founder" width={500} height={300} className="rounded-lg" />
           </div>
-          <div className={`absolute inset-0 transition duration-700 ease-in-out ${isFlipped.founder ? 'rotate-y-0' : 'rotate-y-180'} rotate-y-180`}>
-            <Image src="/img/filt.jpeg" alt="About the Founder" layout="fill" objectFit="cover" className="w-full h-full" />
+          <div className="md:w-1/2 md:pl-6 mt-4 md:mt-0">
+            <p className="text-lg mb-4" style={{ fontFamily: "'Caveat', cursive" }}>
+              Saga Nord, the founder of ReLoveYarn, has been passionate about sustainable fashion for over a decade.
+            </p>
+            <p className="text-lg mb-4" style={{ fontFamily: "'Caveat', cursive" }}>
+              With a background in textile design and a deep commitment to ethical practices, she started ReLoveYarn to make a difference in the fashion industry.
+            </p>
+            <p className="text-lg" style={{ fontFamily: "'Caveat', cursive" }}>
+              Saga's vision is to create a world where fashion is both beautiful and sustainable, and she works tirelessly to make this vision a reality.
+            </p>
           </div>
         </div>
-      </div>
+      </section>
     </main>
   );
 };
 
-export default AboutInfo;
+export default About;

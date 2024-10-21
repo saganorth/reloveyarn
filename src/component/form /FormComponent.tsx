@@ -36,7 +36,7 @@ const FormComponent: React.FC<FormComponentProps> = ({ handleChange, handleProdu
     return <p>Loading...</p>; // Handle loading state
   }
 
-  const handleContactChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleContactChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
@@ -47,10 +47,6 @@ const FormComponent: React.FC<FormComponentProps> = ({ handleChange, handleProdu
       product: prev?.product || '' // Add this line to ensure product is always of type string
     }));
   };
-
- 
-
-
 
   const renderProductSpecificForm = (): JSX.Element | null => {
     switch (productType) {
@@ -63,7 +59,6 @@ const FormComponent: React.FC<FormComponentProps> = ({ handleChange, handleProdu
     }
   };
 
-
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (e.currentTarget.checkValidity()) {
@@ -71,11 +66,10 @@ const FormComponent: React.FC<FormComponentProps> = ({ handleChange, handleProdu
     }
   };
 
-
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="bg-pink-100 shadow-lg rounded-lg p-8">
       <div className="mb-4">
-        <label htmlFor='product' className="block text-gray-700 text-sm font-bold mb-2">Product</label>
+        <label htmlFor='product' className="block text-lg font-bold mb-2 text-pink-700">Product</label>
         <select
           name='product'
           id='product'
@@ -84,7 +78,7 @@ const FormComponent: React.FC<FormComponentProps> = ({ handleChange, handleProdu
             setProductType(e.target.value);
             handleProductChange(e);
           }}
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          className="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           required
         >
           <option value="">Select a product</option>
@@ -97,59 +91,27 @@ const FormComponent: React.FC<FormComponentProps> = ({ handleChange, handleProdu
 
       {/* Contact Information Section */}
       <div className="mb-4">
-        <h3 className="text-lg leading-6 font-medium text-gray-900">Contact Information</h3>
+        <h3 className="text-lg leading-6 font-bold mb-2 text-pink-700">Contact Information</h3>
         <div className="mt-2 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-2">
-          <div>
-            <label htmlFor="firstName" className="block text-sm font-medium text-gray-700">First Name</label>
-            <input
-              type="text"
-              name="firstName"
-              id="firstName"
-              value={formData.contactInfo?.firstName || ''}
-              onChange={handleContactChange}
-              className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-              required
-            />
-          </div>
-          <div>
-            <label htmlFor="lastName" className="block text-sm font-medium text-gray-700">Last Name</label>
-            <input
-              type="text"
-              name="lastName"
-              id="lastName"
-              value={formData.contactInfo?.lastName || ''}
-              onChange={handleContactChange}
-              className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-              required
-            />
-          </div>
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
-            <input
-              type="email"
-              name="email"
-              id="email"
-              value={formData.contactInfo?.email || ''}
-              onChange={handleContactChange}
-              className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-              required
-            />
-          </div>
-          <div>
-            <label htmlFor="phoneNumber" className="block text-sm font-medium text-gray-700">Phone Number</label>
-            <input
-              type="text"
-              name="phoneNumber"
-              id="phoneNumber"
-              value={formData.contactInfo?.phoneNumber || ''}
-              onChange={handleContactChange}
-              className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-              required
-            />
-          </div>
+          {["firstName", "lastName", "email", "phoneNumber"].map((field) => (
+            <div key={field}>
+              <label htmlFor={field} className="block text-sm font-bold text-gray-700 capitalize">{field.replace(/([A-Z])/g, ' $1')}</label>
+              <input
+          type="text"
+          name={field}
+          id={field}
+          value={formData.contactInfo?.[field] || ''}
+          onChange={handleContactChange}
+          className="mt-1 focus:ring-pink-500 focus:border-pink-500 block w-full shadow-sm sm:text-lg border-gray-300 rounded-md"
+          required
+              />
+            </div>
+          ))}
         </div>
       </div>
-      <button type="submit" className="mt-4 px-4 py-2 bg-blue-500 text-white rounded">Submit</button>
+      <button type="submit" className="mt-4 px-4 py-2 bg-pink-500 text-white font-bold rounded-full hover:bg-pink-600 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-opacity-50">
+        <span className="mr-2">Submit</span>
+      </button>
     </form>
   );
 };
