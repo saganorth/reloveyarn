@@ -19,14 +19,14 @@ const Cart = () => {
               <img src={item.imageUrl} alt={item.namn} className="h-20 w-20 object-cover rounded-lg" />
               <div className="flex-grow flex flex-col justify-between">
                 <span className="text-lg font-medium text-gray-800">{item.namn}</span>
-                <span className="text-gray-600">${item.pris.toFixed(2)}</span>
+                <span className="text-gray-600">{item.pris.toFixed(2)} kr</span>
               </div>
-              <span className="text-lg font-bold text-gray-900">${item.pris.toFixed(2)}</span>
+              <span className="text-lg font-bold text-gray-900">{item.pris.toFixed(2)} kr</span>
             </li>
           ))}
           <li className="pt-4">
             <strong className="text-lg">Total:</strong>
-            <span className="float-right text-lg font-bold">${total.toFixed(2)}</span>
+            <span className="float-right text-lg font-bold">{total.toFixed(2)}kr</span>
           </li>
         </ul>
       )}

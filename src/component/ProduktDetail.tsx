@@ -1,56 +1,42 @@
-import { GetStaticPaths, GetStaticProps } from 'next';
-import Image from 'next/image';
-import { useRouter } from 'next/router';
+// components/ProductDetail.tsx
 import React from 'react';
-
-interface Product {
-  id: string;
-  name: string;
-  description: string;
-  price: number;
-  imageUrl: string;
-}
+import { Product } from '../models/product';
+import Image from 'next/image';
 
 interface ProductDetailProps {
-  product: Product;
+  product: Product | null;
 }
 
-const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
-  const router = useRouter();
+const assetBaseUrl = 'https://localhost:3000/';
 
-  if (router.isFallback) {
-    return <div>Loading...</div>;
+const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
+  if (!product) {
+    return <p className="text-center mt-10 text-xl">Product not found.</p>;
   }
 
   return (
-    <div className="container mx-auto p-4">
-      <div className="flex flex-col items-center">
-        <Image src={product.imageUrl} alt={product.name} width={500} height={500} className="rounded-lg" />
-        <h1 className="text-3xl font-bold mt-4">{product.name}</h1>
-        <p className="text-xl text-gray-700 mt-2">${product.price.toFixed(2)}</p>
-        <p className="text-gray-600 mt-4">{product.description}</p>
+    <div className="bg-lightpurple p-5 shadow-lg rounded-lg my-5 mx-auto max-w-4xl">
+      <div className="bg-white p-5 border border-gray-200 shadow-lg rounded-lg relative" style={{ maxWidth: '300px' }}>
+        <Image
+          src={`${assetBaseUrl}${product.imageUrl.startsWith('/') ? product.imageUrl.slice(1) : product.imageUrl}`}
+          alt={product.namn}
+          width={284}
+          height={284}
+          className="rounded-md"
+        />
+        <div className="text-center mt-3">
+          <h3 className="text-lg font-semibold text-gray-800">
+            {product.namn}
+          </h3>
+        </div>
+      </div>
+      <div className="mt-5">
+        <p className="mt-1 text-gray-500">{product.beskrivning}</p>
+        <p className="text-lg mt-2"><span className="font-bold">Mått:</span> {product.mått}</p>
+        <p className="text-lg mt-1"><span className="font-bold"></span> {product.pris}kr</p>
       </div>
     </div>
   );
-};
-
-export const getStaticPaths: GetStaticPaths = async () => {
-  // Fetch the list of products to generate paths
-  const res = await fetch('https://your-api-endpoint/products');
-  const products: Product[] = await res.json();
-
-  const paths = products.map((product) => ({
-    params: { id: product.id },
-  }));
-
-  return { paths, fallback: true };
-};
-
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const res = await fetch(`https://localhost/products/${params?.id}`);
-  const product: Product = await res.json();
-
-  return { props: { product } };
 };
 
 export default ProductDetail;

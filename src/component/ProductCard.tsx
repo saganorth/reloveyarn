@@ -25,14 +25,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ products, assetBaseUrl }) => 
           <div className="bg-white p-4 border border-gray-200 shadow-lg rounded-lg relative">
             <Link href={`/products/${product.category}/${product.id}`}>
               <div aria-label={`View details for ${product.namn}`} className="block hover:bg-gray-200">
-                <Image
-                  src={imageUrl} 
-                  alt={product.namn}
-                  width={500}
-                  height={300}
-                  className="w-full mb-4"
-                  style={{ flexGrow: 1 }}
-                />
+               
                 <div className="text-center">
                   <h3 className="text-lg font-semibold text-gray-800" style={{ fontFamily: "'Caveat', cursive" }}>
                     {product.namn}

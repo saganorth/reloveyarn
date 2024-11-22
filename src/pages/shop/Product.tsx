@@ -1,90 +1,56 @@
 import React, { useState, useEffect, FC } from 'react';
 import ProductList from '../../component/ProductList';
-import { Products } from '../../models/product';
+import { Product} from '../../models/product';
+import useSortedFilteredProducts from '../../component/useSortedFilteredProducts'; // assuming the hook is exported
 
-interface ProductsPageProps {}
-
-const ProductsPage: FC<ProductsPageProps> = () => {
-  const [products, setProducts] = useState<Products[]>([]);
+const ProductsPage: FC = () => {
+  const [products, setProducts] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [category, setCategory] = useState<string>('All');
   const [sortOrder, setSortOrder] = useState<string>('latest');
-  const [debouncedSearchQuery, setDebouncedSearchQuery] = useState(searchQuery);
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      setIsLoading(true);
-      setError(null);
+  const fetchProducts = async () => {
+    setIsLoading(true);
+    setError(null);
     try {
-        const response = await fetch('http://localhost:3000/api/products');
-        if (!response.ok) {
-            const errorData = await response.text();
-            throw new Error(errorData || 'Error fetching products');
-        }
-        const data = await response.json();
-        if (data && typeof data === 'object') {
-            const allProducts: Products[] = (Object.values(data) as Products[]).flat();
-            setProducts(allProducts);
-        } else {
-            throw new Error('Products data is not in expected format');
-        }
-    } catch (error: any) {
-        setError(`Failed to fetch products: ${error.message || error.toString()}`);
-      } finally {
-        setIsLoading(false);
+      const response = await fetch('http://localhost:3000/api/products');
+      if (!response.ok) {
+          throw new Error('Failed to fetch products');
       }
-    };
+      const data = await response.json();
+      const normalizedProducts = [].concat(...Object.keys(data).map(key => 
+        data[key].map((product) => ({ ...product, category: key }))
+      ));
+      console.log("Normalized Products:", normalizedProducts);
+normalizedProducts.forEach(product => {
+  console.log(`Category: ${product.category}, ID: ${product.id}`);
+});
+      setProducts(normalizedProducts);
+    } catch (error: any) {
+      setError(`Failed to fetch products: ${error.message}`);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  
+  useEffect(() => {
+    console.log("Normalized Products:", products);
     fetchProducts();
   }, []);
 
-  useEffect(() => {
-    const handler = setTimeout(() => {
-      setDebouncedSearchQuery(searchQuery);
-    }, 300); // Debounce for 300 ms
-    return () => clearTimeout(handler);
-  }, [searchQuery]);
+  const sortedAndFilteredProducts = useSortedFilteredProducts({ products, sortOrder, searchQuery, category });
 
-  const sortedAndFilteredProducts = React.useMemo(() => {
-    console.log("Filtering products", { products, category, debouncedSearchQuery, sortOrder });
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
+  console.log("Initial products:", products);
   
-    let filteredProducts = products;
   
-    if (category !== 'All') {
-      filteredProducts = filteredProducts.filter(product => {
-        const categoryMatch = product.category === category;
-        console.log("Category Filter", { product, categoryMatch });
-        return categoryMatch;
-      });
-    }
-  
-    filteredProducts = filteredProducts.filter(product => {
-      const nameMatch = product.namn.toLowerCase().includes(debouncedSearchQuery.toLowerCase());
-      console.log("Search Filter", { product, nameMatch });
-      return nameMatch;
-    });
-  
-    if (sortOrder === 'latest') {
-      filteredProducts.sort((a, b) => b.id - a.id);
-    } else if (sortOrder === 'price') {
-      filteredProducts.sort((a, b) => a.pris - b.pris);
-    } else if (sortOrder === 'priceDesc') {
-      filteredProducts.sort((a, b) => b.pris - a.pris);
-    }
-  
-    console.log("Sorted and Filtered Products", filteredProducts);
-    return filteredProducts;
-  }, [products, sortOrder, debouncedSearchQuery, category]);
-  
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
-
+  console.log("Current Category:", category);
+  console.log("Search Query:", searchQuery);
+  console.log("Sort Order:", sortOrder);
+  console.log("Filtered Products:", sortedAndFilteredProducts);
   return (
     <div className="bg-violet-200 min-h-screen text-gray-800">
       <h1 className="text-4xl font-bold text-center text-violet-900 py-10">Our Products</h1>
@@ -96,17 +62,13 @@ const ProductsPage: FC<ProductsPageProps> = () => {
           onChange={(e) => setSearchQuery(e.target.value)}
           className="p-2 rounded text-gray-800"
         />
-        <select
-          value={category}
-          onChange={(e) => setCategory(e.target.value)}
-          className="p-2 rounded text-gray-800"
-        >
-          <option value="All">All Categories</option>
-          <option value="filtar">Filtar</option>
-          <option value="mössor">Mössor</option>
-          <option value="väskor">Väskor</option>
-          <option value="balaklava">Balaklava</option>
-        </select>
+        <select value={category} onChange={(e) => setCategory(e.target.value)}>
+  <option value="All">All Categories</option>
+  <option value="filtar">Filtar</option>
+  <option value="mössor">Mössor</option>
+  <option value="väskor">Väskor</option>
+  <option value="balaklava">Balaklava</option>
+</select>
         <select
           value={sortOrder}
           onChange={(e) => setSortOrder(e.target.value)}
@@ -119,10 +81,11 @@ const ProductsPage: FC<ProductsPageProps> = () => {
       </div>
       <div className="container mx-auto p-5">
         <div className="flex flex-wrap justify-center">
-          <ProductList products={sortedAndFilteredProducts} />
+          <ProductList products={sortedAndFilteredProducts} assetBaseUrl={undefined} handleAddToCart={undefined}/>
         </div>
       </div>
     </div>
+    
   );
 };
 

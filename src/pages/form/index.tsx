@@ -23,11 +23,11 @@ const FormPage = () => {
     };
 
     return (
-        <div className="min-h-screen flex flex-col bg-pink-100">
+        <div className="min-h-screen flex flex-col bg-pink-300">
             <Header />
             <main className="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-                <div className="max-w-4xl mx-auto bg-pink-200 shadow-xl rounded-xl p-8 border border-pink-300">
-                    <h1 className="text-3xl font-bold mb-6 text-center text-pink-700">Create Your Perfect Crochet Project</h1>
+                <div className="max-w-4xl mx-auto bg-white shadow-xl rounded-2xl p-8 border border-pink-400">
+                    <h1 className="text-4xl font-bold mb-6 text-center text-pink-600" style={{ fontFamily: "'Comic Sans MS', cursive" }}>Create Your Perfect Crochet Project</h1>
                     <FormComponent
                         formData={formData}
                         handleChange={handleChange}
