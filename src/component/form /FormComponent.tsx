@@ -7,11 +7,32 @@ import BalaklavaForm from './BalaklavaForm';
 import BagForm from './BagForm';
 import Image from 'next/image';
 
+type FormComponentProps = {
 
-interface FormComponentProps {
-    handleChange: (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => void;
-    handleProductChange: (e: ChangeEvent<HTMLSelectElement>) => void;
-}
+  formData: {
+
+      product: string;
+
+      type: string;
+
+      color: string;
+
+      yarnType: string;
+
+      measurements: string;
+
+      comment: string;
+
+  };
+
+  handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void;
+
+  handleProductChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+
+};
+
+
+
 
 const FormComponent: React.FC<FormComponentProps> = ({ handleChange, handleProductChange }) => {
     const [productType, setProductType] = useState<string>('');
@@ -28,7 +49,30 @@ const FormComponent: React.FC<FormComponentProps> = ({ handleChange, handleProdu
     if (!formData) {
         return <p>Loading...</p>; // Handle loading state
     }
-
+const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    if (name in formData.contactInfo) {  // Check if the field belongs to contactInfo
+        setFormData(prevFormData => ({
+            ...prevFormData,
+            contactInfo: {
+                ...prevFormData.contactInfo,
+                [name]: value
+            }
+        }));
+    } else if (name === 'color') {
+        // Assuming you want to split a string input into an array, or adjust based on your input method
+        const colorsArray = value.split(',').map(color => color.trim());
+        setFormData(prevFormData => ({
+            ...prevFormData,
+            [name]: colorsArray
+        }));
+    } else {
+        setFormData(prevFormData => ({
+            ...prevFormData,
+            [name]: value
+        }));
+    }
+};
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (e.currentTarget.checkValidity()) {
@@ -48,19 +92,20 @@ const FormComponent: React.FC<FormComponentProps> = ({ handleChange, handleProdu
           <div className="flex space-x-4 justify-center">
   {['filt', 'väska', 'balaklava', 'mössa'].map((type) => (
     <button
-      key={type}
-      onClick={() => selectProduct(type)}
-      className={`relative w-[100px] h-[90px] ${productType === type ? 'bg-pink-500' : 'bg-pink-300'} shadow-md focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-opacity-50`}
-      style={{
-        display: 'inline-block',
-        width: '100px',
-        height: '90px',
-        borderRadius: '50%',
-        background: productType === type ? '#f50057' : '#ffc0cb',
-        overflow: 'hidden',
-        position: 'relative'
-      }}
-    >
+    type="button"  // Explicitly making it a button that doesn't submit the form.
+    key={type}
+    onClick={() => selectProduct(type)}
+    className={`relative w-[100px] h-[90px] ${productType === type ? 'bg-pink-500' : 'bg-pink-300'} shadow-md focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-opacity-50`}
+    style={{
+      display: 'inline-block',
+      width: '100px',
+      height: '90px',
+      borderRadius: '50%',
+      background: productType === type ? '#f50057' : '#ffc0cb',
+      overflow: 'hidden',
+      position: 'relative'
+    }}
+  >
     <div style={{
       clipPath: "url('#heart-shape')",
       width: '100%',
@@ -73,11 +118,11 @@ const FormComponent: React.FC<FormComponentProps> = ({ handleChange, handleProdu
       justifyContent: 'center'
     }}>
       <Image
-        src={`/${type}.jpeg`}
-        alt={type}
-        layout="fill"
-        objectFit="cover"
-        style={{ width: '100%', height: '100%' }}
+      src={`/${type}.jpeg`}
+      alt={type}
+      layout="fill"
+      objectFit="cover"
+      style={{ width: '100%', height: '100%' }}
       />
     </div>
     </button>
@@ -91,13 +136,12 @@ const FormComponent: React.FC<FormComponentProps> = ({ handleChange, handleProdu
   </defs>
 </svg>
 
-        {productType && (
-          productType === 'filt' ? <FiltForm formData={formData} handleChange={handleChange} /> :
-          productType === 'mössa' ? <MossaForm formData={formData} handleChange={handleChange} /> :
-          productType === 'balaklava' ? <BalaklavaForm formData={formData} handleChange={handleChange} /> :
-          productType === 'väska' ? <BagForm formData={formData} handleChange={handleChange} /> : null
-        )}
-    
+{productType && (
+  productType === 'filt' ? <FiltForm formData={formData} handleChange={handleInputChange} /> :
+  productType === 'mössa' ? <MossaForm formData={formData} handleChange={handleInputChange} /> :
+  productType === 'balaklava' ? <BalaklavaForm formData={formData} handleChange={handleInputChange} /> :
+  productType === 'väska' ? <BagForm formData={formData} handleChange={handleInputChange} /> : null
+)}
       <div className="mb-4">
           <h3 className="text-lg leading-6 font-bold mb-2 text-pink-700">Contact Information</h3>
           <div className="mt-2 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-2">
@@ -109,7 +153,7 @@ const FormComponent: React.FC<FormComponentProps> = ({ handleChange, handleProdu
                   name={field}
                   id={field}
                   value={formData.contactInfo[field]}
-                  onChange={handleChange}
+                  onChange={handleInputChange}
                   className="mt-1 focus:ring-pink-500 focus:border-pink-500 block w-full shadow-sm sm:text-lg border-gray-300 rounded-md"
                   required />
               </div>
