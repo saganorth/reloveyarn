@@ -3,98 +3,122 @@ import { ContactFormData } from '../../models/ContactFormData';
 
 interface BagFormProps {
   formData: ContactFormData;
-  handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void;
+  handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement> | { target: { name: string, value: string[] } }) => void;
 }
 
 const BagForm: React.FC<BagFormProps> = ({ formData, handleChange }) => {
-  // Ensures formData.color is always an array before using it
+  return (
+    <div> {/* This is the parent div for the form elements */}
+      {/* Color Selection */}
+      <div className="mb-4">
+                <label htmlFor="color" className="block text-gray-700 text-sm font-bold mb-2">Color</label>
+                <div className="flex flex-wrap">
+                    {['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet', 'black', 'white', 'brown'].map((color) => (
+                        <label key={color} className="flex items-center mr-6 mb-4">
+                            <input
+                                type="checkbox"
+                                name="color"
+                                value={color}
+                                checked={formData.color.includes(color)}
+                                onChange={(e) => {
+                                    const newValue = e.target.checked
+                                        ? [...formData.color, color]
+                                        : formData.color.filter((c) => c !== color);
+                                    handleChange({ target: { name: 'color', value: newValue } });
+                                }}
+                                className="hidden"
+                            />
+                            <span
+                                className={`w-12 h-12 rounded-full border-2 border-gray-300 ${formData.color.includes(color) ? 'border-blue-500' : ''}`}
+                                style={{ backgroundColor: color }}
+                            ></span>
+                        </label>
+                    ))}
+                </div>
+            </div>
+      {/* Type of Bag */}
+      <div className="mb-4">
+        <label htmlFor='type' className="block text-gray-700 text-sm font-bold mb-2">Type</label>
+        <select
+          name='type'
+          id='type'
+          value={formData.type !== undefined && formData.type !== null ? formData.type : ''}
+          onChange={handleChange}
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          required
+        >
+          <option value="">Select type</option>
+          <option value="A">beanie</option>
+          <option value="B">overears</option>
+          <option value="C">bucket</option>
+        </select>
+      </div>
 
-      return (
-          <div> {/* This is the parent div for the form elements */}
-              {/* Color Selection */}
-              <div className="mb-4">
-                  <label className="block text-gray-700 text-sm font-bold mb-2">Color</label>
-                  <input
-                      type='text'
-                      name='color'
-                      id='color'
-                      value={formData.color?.join(', ') ?? ''} // Ensures formData.color is an array before using it
-                      onChange={handleChange}
-                      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                      required
-                  />
-              </div>
-  
-              {/* Type of Filt */}
-              <div className="mb-4">
-                  <label htmlFor='type' className="block text-gray-700 text-sm font-bold mb-2">Type</label>
-                  <select
-                      name='type'
-                      id='type'
-                      value={formData.type}
-                      onChange={handleChange}
-                      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                      required
-                  >
-                      <option value="">Select type</option>
-                      <option value="A">beanie</option>
-                      <option value="B">overears</option>
-                      <option value="C">bucket</option>
-                      {/* Add more options as needed */}
-                  </select>
-              </div>
-  
-              {/* Type of Yarn */}
-              <div className="mb-4">
-                  <label htmlFor='yarnType' className="block text-gray-700 text-sm font-bold mb-2">Yarn Type</label>
-                  <select
-                      name='yarnType'
-                      id='yarnType'
-                      value={formData.yarnType}
-                      onChange={handleChange}
-                      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                      required
-                  >
-                      <option value="">Select yarn type</option>
-                      <option value="Cotton">Cotton</option>
-                      <option value="Wool">Wool</option>
-                      <option value="Acrylic">Acrylic</option>
-                      {/* Add more options as needed */}
-                  </select>
-              </div>
-  
-              {/* Measurements Input */}
-              <div className="mb-4">
-                  <label htmlFor='measurements' className="block text-gray-700 text-sm font-bold mb-2">Measurements</label>
-                  <input
-                      type='text'
-                      name='measurements'
-                      id='measurements'
-                      value={formData.measurements || ''}
-                      onChange={handleChange}
-                      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                      required
-                  />
-              </div>
-              
-  
-              {/* Comment Section */}
-              <div className="mb-4">
-                  <label htmlFor='comment' className="block text-gray-700 text-sm font-bold mb-2">Comment</label>
-                  <textarea
-                      name='comment'
-                      id='comment'
-                      value={formData.comment || ''}
-                      onChange={handleChange}
-                      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                      rows={3}
-                      required
-                  ></textarea>
-              </div>
-          </div> 
-      );
-  };
- 
+      {/* Type of Yarn */}
+      <div className="mb-4">
+        <label htmlFor='yarnType' className="block text-gray-700 text-sm font-bold mb-2">Yarn Type</label>
+        <select
+          name='yarnType'
+          id='yarnType'
+          value={formData.yarnType !== undefined && formData.yarnType !== null ? formData.yarnType : ''}
+          onChange={handleChange}
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          required
+        >
+          <option value="">Select yarn type</option>
+          <option value="Cotton">Cotton</option>
+          <option value="Wool">Wool</option>
+          <option value="Acrylic">Acrylic</option>
+        </select>
+      </div>
 
-export default BagForm ;
-    
+      <div className="mb-4">
+                <label htmlFor="width" className="block text-gray-700 text-sm font-bold mb-2">Width</label>
+                <div className="flex items-center">
+                    <input
+                        type="text"
+                        name="width"
+                        id="width"
+                        value={formData.measurements.width}
+                        onChange={handleChange}
+                        className="shadow appearance-none border rounded w-1/4 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        required
+                    />
+                    <span className="ml-2">cm</span>
+                </div>
+            </div>
+            <div className="mb-4">
+                <label htmlFor="length" className="block text-gray-700 text-sm font-bold mb-2">Length</label>
+                <div className="flex items-center">
+                    <input
+                        type="text"
+                        name="length"
+                        id="length"
+                        value={formData.measurements.length}
+                        onChange={handleChange}
+                        className="shadow appearance-none border rounded w-1/4 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        required
+                    />
+                    <span className="ml-2">cm</span>
+                </div>
+            </div>
+
+
+      {/* Comment Section */}
+      <div className="mb-4">
+        <label htmlFor='comment' className="block text-gray-700 text-sm font-bold mb-2">Comment</label>
+        <textarea
+          name='comment'
+          id='comment'
+          value={formData.comment !== undefined && formData.comment !== null ? formData.comment : ''}
+          onChange={handleChange}
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          rows={3}
+          required
+        ></textarea>
+      </div>
+    </div> 
+  );
+};
+
+export default BagForm;

@@ -5,14 +5,14 @@ const About: React.FC = () => {
   return (
     <main className="min-h-screen bg-violet-200 text-gray-800 p-8">
       {/* Mission Section */}
-      <section className="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-6 mb-8">
-        <h1 className="text-3xl font-bold mb-4 text-center" style={{ fontFamily: "'Caveat', cursive" }}>Our Mission</h1>
+      <section className="max-w-3xl mx-auto bg-white rounded-lg shadow-lg p-6 mb-8" style={{ background: 'url(/postcard.png) no-repeat center center', backgroundSize: 'contain' }}>
         <div className="flex flex-col md:flex-row items-center">
           <div className="md:w-1/2">
-            <Image src="/scrapbook.png" alt="Our Mission" width={500} height={300} className="rounded-lg" />
+            <Image src="/scrapbook.png" alt="Our Mission" width={500} height={200} className="rounded-lg" />
           </div>
           <div className="md:w-1/2 md:pl-6 mt-4 md:mt-0">
-            <p className="text-lg mb-4" style={{ fontFamily: "'Caveat', cursive" }}>
+            <h1 className="text-3xl font-bold mb-4 text-center" style={{ fontFamily: "'Caveat', cursive" }}>Our Mission</h1>
+            <p className="text-lg mb-5" style={{ fontFamily: "'Caveat', cursive" }}>
               At ReLoveYarn, our commitment is to make slow fashion the first choice for consumers.
             </p>
             <p className="text-lg mb-4" style={{ fontFamily: "'Caveat', cursive" }}>

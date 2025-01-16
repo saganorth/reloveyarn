@@ -10,7 +10,10 @@ export interface ContactFormData {
   type: string;
   color?: string[];
   yarnType: string;
-  measurements: string;
+  measurements: {
+    width: string;
+    length: string;
+  };
   comment: string;
   contactInfo: ContactInfo;
 }

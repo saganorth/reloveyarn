@@ -1,45 +1,52 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { ContactFormData } from '../../models/ContactFormData';
 
-interface FiltFormProps {
-    formData: ContactFormData;  // Pass initial form data instead of empty state
-    handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void;
+interface LocalContactFormData {
+    color: string[];
+    type: string;
+    yarnType: string;
+    measurements: {
+        width: string;
+        length: string;
+    };
+    comment: string;
+    width: string;
+    length: string;
 }
 
-const FiltForm: React.FC<FiltFormProps> = ({ formData, handleChange }) => {
-    // Manage the form data state in the parent component or context if needed across multiple forms
-    const [localFormData, setLocalFormData] = useState<ContactFormData>(formData);
+interface FiltFormProps {
+    formData: LocalContactFormData;
+    handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement> | { target: { name: string; value: string[] } }) => void;
+}
 
-    // Example handleChange function specific to this form if needed
-    const localHandleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-        const { name, value } = e.target;
-        if (name === 'color') {
-            setLocalFormData(prevFormData => ({
-                ...prevFormData,
-                color: value.split(',').map(color => color.trim())
-            }));
-        } else {
-            setLocalFormData(prevFormData => ({
-                ...prevFormData,
-                [name]: value
-            }));
-        }
-        handleChange(e);
-    };
-
-    return (
+    const FiltForm: React.FC<FiltFormProps> = ({ formData, handleChange }) => {
+        return (
         <div>
             <div className="mb-4">
                 <label htmlFor="color" className="block text-gray-700 text-sm font-bold mb-2">Color</label>
-                <input
-                    type="text"
-                    name="color"
-                    id="color"
-                    value={localFormData.color.join(', ')}
-                    onChange={localHandleChange}
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    required
-                />
+                <div className="flex flex-wrap">
+                    {['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet', 'black', 'white', 'brown'].map((color) => (
+                        <label key={color} className="flex items-center mr-6 mb-4">
+                            <input
+                                type="checkbox"
+                                name="color"
+                                value={color}
+                                checked={formData.color.includes(color)}
+                                onChange={(e) => {
+                                    const newValue = e.target.checked
+                                        ? [...formData.color, color]
+                                        : formData.color.filter((c) => c !== color);
+                                    handleChange({ target: { name: 'color', value: newValue } });
+                                }}
+                                className="hidden"
+                            />
+                            <span
+                                className={`w-12 h-12 rounded-full border-2 border-gray-300 ${formData.color.includes(color) ? 'border-blue-500' : ''}`}
+                                style={{ backgroundColor: color }}
+                            ></span>
+                        </label>
+                    ))}
+                </div>
             </div>
 
             <div className="mb-4">
@@ -47,8 +54,8 @@ const FiltForm: React.FC<FiltFormProps> = ({ formData, handleChange }) => {
                 <select
                     name="type"
                     id="type"
-                    value={localFormData.type}
-                    onChange={localHandleChange}
+                    value={formData.type}
+                    onChange={handleChange}
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     required
                 >
@@ -64,8 +71,8 @@ const FiltForm: React.FC<FiltFormProps> = ({ formData, handleChange }) => {
                 <select
                     name="yarnType"
                     id="yarnType"
-                    value={localFormData.yarnType}
-                    onChange={localHandleChange}
+                    value={formData.yarnType}
+                    onChange={handleChange}
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     required
                 >
@@ -77,16 +84,34 @@ const FiltForm: React.FC<FiltFormProps> = ({ formData, handleChange }) => {
             </div>
 
             <div className="mb-4">
-                <label htmlFor="measurements" className="block text-gray-700 text-sm font-bold mb-2">Measurements</label>
-                <input
-                    type="text"
-                    name="measurements"
-                    id="measurements"
-                    value={localFormData.measurements}
-                    onChange={localHandleChange}
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    required
-                />
+                <label htmlFor="width" className="block text-gray-700 text-sm font-bold mb-2">Width</label>
+                <div className="flex items-center">
+                    <input
+                        type="text"
+                        name="width"
+                        id="width"
+                        value={formData.measurements.width}
+                        onChange={handleChange}
+                        className="shadow appearance-none border rounded w-1/4 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        required
+                    />
+                    <span className="ml-2">cm</span>
+                </div>
+            </div>
+            <div className="mb-4">
+                <label htmlFor="length" className="block text-gray-700 text-sm font-bold mb-2">Length</label>
+                <div className="flex items-center">
+                    <input
+                        type="text"
+                        name="length"
+                        id="length"
+                        value={formData.measurements.length}
+                        onChange={handleChange}
+                        className="shadow appearance-none border rounded w-1/4 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        required
+                    />
+                    <span className="ml-2">cm</span>
+                </div>
             </div>
 
             <div className="mb-4">
@@ -94,8 +119,8 @@ const FiltForm: React.FC<FiltFormProps> = ({ formData, handleChange }) => {
                 <textarea
                     name="comment"
                     id="comment"
-                    value={localFormData.comment}
-                    onChange={localHandleChange}
+                    value={formData.comment}
+                    onChange={handleChange}
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     rows={3}
                     required

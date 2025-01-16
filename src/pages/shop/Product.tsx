@@ -1,7 +1,8 @@
 import React, { useState, useEffect, FC } from 'react';
 import ProductList from '../../component/ProductList';
 import { Product} from '../../models/product';
-import useSortedFilteredProducts from '../../component/useSortedFilteredProducts'; // assuming the hook is exported
+import useSortedFilteredProducts from '../../component/useSortedFilteredProducts'; 
+import Header from '../../component/ui/Header';
 
 const ProductsPage: FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -52,7 +53,8 @@ normalizedProducts.forEach(product => {
   console.log("Sort Order:", sortOrder);
   console.log("Filtered Products:", sortedAndFilteredProducts);
   return (
-    <div className="bg-violet-200 min-h-screen text-gray-800">
+    <div className="min-h-screen text-gray-800" style={{ background: 'url(/shopping.png)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+ 
       <h1 className="text-4xl font-bold text-center text-violet-900 py-10">Our Products</h1>
       <div className="flex justify-center gap-4 mb-8">
         <input

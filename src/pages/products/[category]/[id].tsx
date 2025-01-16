@@ -1,9 +1,9 @@
 // pages/products/[category]/[id].tsx
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import ProductDetail from '../../../component/ProduktDetail';
-
-// Assuming you have a Products type
+import Header from '../../../component/ui/Header';
+import Footer from '../../../component/ui/Footer';
 import { Product } from '../../../models/product';
 
 interface ProductPageProps {
@@ -11,52 +11,86 @@ interface ProductPageProps {
 }
 
 const ProductPage: NextPage<ProductPageProps> = ({ product }) => {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const fetchProducts = async () => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const response = await fetch('http://localhost:3000/api/products');
+      if (!response.ok) {
+        throw new Error('Failed to fetch products');
+      }
+      const data = await response.json();
+      const normalizedProducts = [].concat(...Object.keys(data).map(key => 
+        data[key].map((product) => ({ ...product, category: key }))
+      ));
+      setProducts(normalizedProducts);
+    } catch (error: any) {
+      setError(`Failed to fetch products: ${error.message}`);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  if (isLoading) {
+    return <div className="container mx-auto p-4">Loading...</div>;
+  }
+
+  if (error) {
+    return <div className="container mx-auto p-4">{error}</div>;
+  }
+
   if (!product) {
     return <div className="container mx-auto p-4">Product not found.</div>;
   }
 
   return (
-    <ProductDetail product={product} />
+    <>
+      
+      <div className="" style={{ background: 'url(/flower.png) no-repeat center center ', backgroundSize: 'cover' }}>
+      <Header />
+      <ProductDetail product={product} assetBaseUrl="" handleAddToCart={undefined} />
+      </div>
+      <Footer />
+    </>
   );
 };
 
-
-
 export const getStaticPaths: GetStaticPaths = async () => {
+  const response = await fetch('http://localhost:3000/api/products');
+  const productsByCategory = await response.json();
 
-  const data = await fetch('http://localhost:3000/api/products');
-  const productsByCategory = await data.json();
-
-  const paths = [];
-
-  
-  for (const [category, products] of Object.entries(productsByCategory)) {
-      (products as Product[]).forEach(product => {
-          paths.push({
-              params: { category: category, id: `${product.id}` }
-          });
-      });
-  }
+  const paths = Object.entries(productsByCategory).flatMap(([category, products]) =>
+    (products as Product[]).map(product => ({
+      params: { category, id: `${product.id}` },
+    }))
+  );
 
   return {
-      paths,
-      fallback: 'blocking' 
+    paths,
+    fallback: 'blocking',
   };
 };
 
-
-// Fetch specific product data using category and id
 export const getStaticProps: GetStaticProps<ProductPageProps> = async ({ params }) => {
-  const { category, id } = params as { category: string, id: string };
+  const { category, id } = params as { category: string; id: string };
   const response = await fetch(`http://localhost:3000/api/products`);
-  const data: Product = await response.json();
+  const data = await response.json();
 
-  const product = data[category]?.find(p => p.id.toString() === id) || null;
+  const product = data[category]?.find((p: Product) => p.id.toString() === id) || null;
 
   return {
     props: {
-      product
-    }
+      product,
+    },
+    revalidate: 60, // Revalidate every 60 seconds
   };
 };
 

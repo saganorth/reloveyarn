@@ -1,9 +1,8 @@
 import { ContactFormData } from "../models/ContactFormData";
 
-
 export const handleSubmit = async (data: ContactFormData): Promise<Response | null> => {
     try {
-        const response = await fetch('http://localhost:3000/api/besokare', {
+        const response = await fetch('http://localhost:3000/api/orders', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -22,11 +21,11 @@ export const handleSubmit = async (data: ContactFormData): Promise<Response | nu
         console.error('Det gick inte att skicka data:', error);
         return null; // Returnerar null vid fel
     }
-  };
+};
   
-  export const fetchUpdatedData = async () => {
+export const fetchUpdatedData = async () => {
     try {
-      const response = await fetch('http://localhost:3000/api/besokare');
+      const response = await fetch('http://localhost:3000/api/orders');
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -36,6 +35,4 @@ export const handleSubmit = async (data: ContactFormData): Promise<Response | nu
       console.error('Det gick inte att hämta uppdaterad data:', error);
       return null; 
     }
-  };
-
-  
+};

@@ -10,7 +10,10 @@ export const getFormData = async (): Promise<ContactFormData> => {
                             type: '',
                             color: [],
                             yarnType: '',
-                            measurements: '',
+                            measurements: {
+                                width: '',
+                                length: ''
+                            },
                             comment: '',
                             contactInfo: {
                                 firstName: '',

@@ -61,8 +61,9 @@ const HomePage = () => {
         </div>
       )}
       <Header/>
-
+      <div className="" style={{ background: 'url(/rainbow.jpg) no-repeat center center ', backgroundSize: 'cover' }}>
       <ProductList products={products} assetBaseUrl={assetBaseUrl} handleAddToCart={handleAddToCart} />
+      </div>
     </main>
   );
 };
