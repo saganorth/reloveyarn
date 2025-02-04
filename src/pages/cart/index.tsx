@@ -9,9 +9,10 @@ const CartPage = () => {
   return (
     <div>
       <Header />
+     
       <Cart />
       <Footer />
-    </div>
+        </div>
   );
 };
 export default CartPage;

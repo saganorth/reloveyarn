@@ -64,9 +64,10 @@ const FormPage = () => {
     return (
         <div className="min-h-screen flex flex-col bg-pink-300">
             <Header />
+            
+            <div className="bg-cover bg-center min-h-screen text-gray-800" style={{ background: 'url(/form.png)' }}>
             <main className="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-                <div className="max-w-4xl mx-auto bg-white shadow-xl rounded-2xl p-8 border border-pink-400">
-                    <h1 className="text-4xl font-bold mb-6 text-center text-pink-600" style={{ fontFamily: "'Comic Sans MS', cursive" }}>Create Your Perfect Crochet Project</h1>
+                <div>
                     <form onSubmit={handleSubmission}>
                         <FormComponent
                             formData={formData}
@@ -75,10 +76,12 @@ const FormPage = () => {
                                 console.log('Product changed:', e.target.value);
                             }}
                         />
-                        <button type="submit" className="mt-4 px-4 py-2 bg-pink-600 text-white rounded">Submit</button>
+                      
                     </form>
                 </div>
+                
             </main>
+            </div>
             <Footer />
         </div>
     );

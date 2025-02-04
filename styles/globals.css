@@ -11,6 +11,21 @@
          url('/fonts/ACTlove.woff') format('woff'),
          url('/fonts/ACTlove.ttf') format('truetype');
     font-weight: normal;
-    font-style: normal;
-  }
-  
+font-style: normal;
+}
+
+@font-face {
+     font-family: 'Veteran Typewriter';
+     src: url('/fonts/veteran-typewriter.regular.ttf') format('truetype');
+     font-weight: normal;
+     font-style: normal;
+}
+
+@font-face {
+     font-family: 'EFour Digital Font Plain';
+     src: url('/fonts/E4 Digital Final.woff2') format('woff2'),
+           url('/fonts/EE4 Digital Final.woff') format('woff'),
+           url('/fonts/E4 Digital Final.ttf') format('truetype');
+     font-weight: normal;
+     font-style: normal;
+}

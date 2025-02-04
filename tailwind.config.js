@@ -7,12 +7,17 @@ module.exports = {
   content: [
     './src/**/*.{html,js,jsx,ts,tsx}',
   ],
-  theme: {
-    extend: { colors: {
+theme: {
+  extend: {  
+    fontFamily: {
+      'comic': ['"Comic Neue"', 'cursive'], typewriter: ['"Veteran Typewriter"', 'monospace'],
+    },
+    colors: {
       lightpurple: '#E9D8FD', 
-    },},
+    },
+    }
   },
-  plugins: [
+    plugins: [
     plugin(function ({ matchUtilities, theme }) {
         matchUtilities(
             {

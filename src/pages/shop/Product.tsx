@@ -2,7 +2,6 @@ import React, { useState, useEffect, FC } from 'react';
 import ProductList from '../../component/ProductList';
 import { Product} from '../../models/product';
 import useSortedFilteredProducts from '../../component/useSortedFilteredProducts'; 
-import Header from '../../component/ui/Header';
 
 const ProductsPage: FC = () => {
   const [products, setProducts] = useState<Product[]>([]);

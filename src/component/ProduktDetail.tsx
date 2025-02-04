@@ -51,7 +51,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
             <div className="text-4xl font-bold mb-6 text-gray-900 text-center">{product.pris ? `${product.pris.toFixed(2)} kr` : 'N/A'}</div>
             <p className="text-lg mb-8 text-gray-600 leading-loose italic text-center">{product.beskrivning}</p>
             <button
-              onClick={handleAddToCart} // <-- Call the function
+              onClick={handleAddToCart} 
               className="px-8 py-4 bg-black text-white font-bold rounded-full hover:bg-gray-800 transition duration-300 ease-in-out transform hover:-translate-y-2 hover:shadow-2xl"
             >
               Add to Cart 👜

@@ -1,8 +1,8 @@
 import { useMemo } from 'react';
-import { Products } from '../models/product';
+import { Product } from '../models/product';
 
 interface UseSortedFilteredProductsParams {
-  products: Products[];
+  products: Product[];
   sortOrder: string;
   searchQuery: string;
   category: string;
@@ -20,29 +20,36 @@ function useSortedFilteredProducts({
   
     // Filter by category if it's not 'All'
     if (category !== 'All') {
-      filteredProducts = filteredProducts.filter((product: Products) =>
-        product.category && product.category.toLowerCase() === category.toLowerCase());
+      filteredProducts = filteredProducts.filter(product => product.category === category);
     }
   
     // Filter by search query
-    filteredProducts = filteredProducts.filter((product: Products) =>
+    if (searchQuery) {
+      filteredProducts = filteredProducts.filter(product =>
+        product.namn.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
+  
+    // Filter by search query
+    filteredProducts = filteredProducts.filter((product: Product) =>
       product.namn && product.namn.toLowerCase().includes(searchQuery.toLowerCase()));
-    console.log("Filtered Products by Category:", filteredProducts);
-    console.log("Filtered Products by Search:", filteredProducts);
-    
+  console.log("Filtered Products by Category:", filteredProducts);
+console.log("Filtered Products by Search:", filteredProducts);
+
     // Sort products
     switch (sortOrder) {
-      case 'latest': // Assuming you have a timestamp or can sort by ID for latest
-        filteredProducts.sort((a, b) => b.id - a.id);
+      case 'latest':
+        filteredProducts.sort((a: Product, b: Product) => b.id - a.id);
         break;
       case 'price':
-        filteredProducts.sort((a, b) => parseFloat(a.pris) - parseFloat(b.pris));
+        filteredProducts.sort((a: Product, b: Product) => a.pris - b.pris);
         break;
       case 'priceDesc':
-        filteredProducts.sort((a, b) => parseFloat(b.pris) - parseFloat(a.pris));
+        filteredProducts.sort((a: Product, b: Product) => b.pris - a.pris);
+        break;
+      default:
         break;
     }
-    
   
     return filteredProducts;
   }, [products, sortOrder, searchQuery, category]);

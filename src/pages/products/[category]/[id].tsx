@@ -53,9 +53,25 @@ const ProductPage: NextPage<ProductPageProps> = ({ product }) => {
 
   return (
     <>
-      
-      <div className="" style={{ background: 'url(/flower.png) no-repeat center center ', backgroundSize: 'cover' }}>
+      <div 
+        className="bg-cover bg-center" 
+        style={{ 
+          backgroundImage: `url(${product?.category === 'mössa' || product?.category === 'balaklava' ? '/idwinter.png' : '/flower.png'})` 
+        }}
+      >
       <Header />
+      <button 
+          onClick={() => window.history.back()} 
+          style={{ 
+            color: 'white',
+            border: 'none',
+            fontSize: '40px',
+            cursor: 'pointer',
+            background: 'none'
+          }}
+        >
+          ← 
+        </button>
       <ProductDetail product={product} assetBaseUrl="" handleAddToCart={undefined} />
       </div>
       <Footer />
@@ -90,7 +106,7 @@ export const getStaticProps: GetStaticProps<ProductPageProps> = async ({ params 
     props: {
       product,
     },
-    revalidate: 60, // Revalidate every 60 seconds
+    revalidate: 60, 
   };
 };
 
