@@ -2,7 +2,6 @@ const path = require('path');
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  swcMinify: true,
   reactStrictMode: true,
   images: {
     domains: ['localhost'],
@@ -20,7 +19,6 @@ const nextConfig = {
     loader: 'default'
   },
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
-    // Use the existing aliases in the config plus add your own
     config.resolve.alias['@'] = path.resolve(__dirname, './');
     return config;
   },

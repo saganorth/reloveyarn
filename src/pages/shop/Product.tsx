@@ -2,6 +2,7 @@ import React, { useState, useEffect, FC } from 'react';
 import ProductList from '../../component/ProductList';
 import { Product} from '../../models/product';
 import useSortedFilteredProducts from '../../component/useSortedFilteredProducts'; 
+import { useCart } from '@/context/CartContext';
 
 const ProductsPage: FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -10,6 +11,7 @@ const ProductsPage: FC = () => {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [category, setCategory] = useState<string>('All');
   const [sortOrder, setSortOrder] = useState<string>('latest');
+const { addToCart } = useCart();
 
   const fetchProducts = async () => {
     setIsLoading(true);
@@ -35,6 +37,12 @@ normalizedProducts.forEach(product => {
     }
   };
   
+  const handleAddToCart = (product: Product) => {
+     addToCart(product);
+    
+     // Ex: du kan även visa en timeout som gömmer notisen igen
+   };
+ 
   useEffect(() => {
     console.log("Normalized Products:", products);
     fetchProducts();
@@ -82,7 +90,11 @@ normalizedProducts.forEach(product => {
       </div>
       <div className="container mx-auto p-5">
         <div className="flex flex-wrap justify-center">
-          <ProductList products={sortedAndFilteredProducts} assetBaseUrl={undefined} handleAddToCart={undefined}/>
+        <ProductList 
+      products={products} 
+      assetBaseUrl="http://localhost:3000"
+      handleAddToCart={handleAddToCart}
+    />
         </div>
       </div>
     </div>
