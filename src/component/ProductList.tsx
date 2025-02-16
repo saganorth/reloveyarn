@@ -45,7 +45,7 @@ const ProductList: React.FC<ProductListProps> = ({
         return (
           <div key={product.id} className="m-4 w-64 relative group">
             <div className="block overflow-hidden shadow-lg bg-white p-5 flex flex-col justify-between border border-white" style={{ height: '400px' }}>
-              
+            <Link href={`/products/${product.category}/${product.id}`} className="text-center">
               {/* Product Image */}
               <Image
                 src={imageUrl}
@@ -56,7 +56,7 @@ const ProductList: React.FC<ProductListProps> = ({
               />
 
               {/* Product Name with Link */}
-              <Link href={`/products/${product.category}/${product.id}`} className="text-center">
+
                 <span className="font-bold text-xl" style={{ fontFamily: "'Caveat', cursive" }}>
                   {product.namn}
                 </span>
@@ -65,7 +65,7 @@ const ProductList: React.FC<ProductListProps> = ({
               {/* Add to Cart Button (Visible on Hover) */}
               <button
                 onClick={() => handleCartClick(product)}
-                className="absolute top-4 right-4 bg-black bg-opacity-50 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 px-3 py-2 text-sm rounded"
+                className="center bg-black bg-opacity-50 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 px-3 py-2 text-sm rounded"style={{ fontFamily: "'Caveat', cursive" }}
               >
                 Add to Cart
               </button>

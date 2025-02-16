@@ -12,26 +12,34 @@ const HomePage = () => {
   const { addToCart } = useCart();
 
   // Bas-URL för att hämta data
-  const assetBaseUrl = "http://localhost:3000/";
+  const assetBaseUrl = process.env.NEXT_PUBLIC_ASSET_BASE_URL || "http://localhost:3000/";
 
   // Hämta slumpade produkter från /api/products
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         const response = await fetch(`${assetBaseUrl}api/products`);
-        if (!response.ok) throw new Error('Failed to fetch products');
+        if (!response.ok) throw new Error(`Failed to fetch products: ${response.status} ${response.statusText}`);
         const data = await response.json();
 
-        // Slå ihop all data till en array
+        // Slå ihop all data till en array med kategori
         const allProducts = [
-          ...data.filtar,
-          ...data.mössor,
-          ...data.väskor,
-          ...data.balaklava,
+          ...(data.filtar?.map(item => ({ ...item, category: 'filtar' })) || []),
+          ...(data.mössor?.map(item => ({ ...item, category: 'mössor' })) || []),
+          ...(data.väskor?.map(item => ({ ...item, category: 'väskor' })) || []),
+          ...(data.balaklava?.map(item => ({ ...item, category: 'balaklava' })) || []),
         ];
 
-        // Slumpar ordningen och tar ut 2
-        const shuffled = allProducts.sort(() => 0.5 - Math.random());
+        // Fisher-Yates shuffle algorithm
+        const shuffleArray = (array: Product[]) => {
+          for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+          }
+          return array;
+        };
+
+        const shuffled = shuffleArray(allProducts);
         setProducts(shuffled.slice(0, 2)); 
       } catch (error) {
         console.error("Error fetching products:", error);
@@ -124,24 +132,5 @@ const HomePage = () => {
   );
 };
 
-// Exempel på en enkel CategoryCard-komponent
-interface CategoryProps {
-  title: string;
-  image: string;
-  link: string;
-}
-const CategoryCard: React.FC<CategoryProps> = ({ title, image, link }) => {
-  return (
-    <a
-      href={link}
-      className="relative w-40 h-40 rounded-xl overflow-hidden shadow-lg transform hover:scale-105 transition"
-      style={{ backgroundImage: `url(${image})`, backgroundSize: 'cover' }}
-    >
-      <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
-        <span className="text-white font-bold text-lg">{title}</span>
-      </div>
-    </a>
-  );
-};
 
 export default HomePage;

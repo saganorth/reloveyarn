@@ -60,9 +60,9 @@ normalizedProducts.forEach(product => {
   console.log("Sort Order:", sortOrder);
   console.log("Filtered Products:", sortedAndFilteredProducts);
   return (
-    <div className="min-h-screen text-gray-800" style={{ background: 'url(/shopping.png)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+    <div className="min-h-screen text-gray-800 bg-pink-100" >
  
-      <h1 className="text-4xl font-bold text-center text-violet-900 py-10">Our Products</h1>
+      <h1 className="text-4xl font-bold text-center text-white py-10 drop-shadow-[1px_1px_1px_rgba(0,0,0,0.6)]">Look book</h1>
       <div className="flex justify-center gap-4 mb-8">
         <input
           type="text"
@@ -91,10 +91,10 @@ normalizedProducts.forEach(product => {
       <div className="container mx-auto p-5">
         <div className="flex flex-wrap justify-center">
         <ProductList 
-      products={products} 
-      assetBaseUrl="http://localhost:3000"
-      handleAddToCart={handleAddToCart}
-    />
+          products={sortedAndFilteredProducts} 
+          assetBaseUrl="http://localhost:3000"
+          handleAddToCart={handleAddToCart}
+        />
         </div>
       </div>
     </div>
