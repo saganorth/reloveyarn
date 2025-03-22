@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faShoppingCart, faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
-import { useCart } from '../../context/CartContext';
+import { faBars, faTimes, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import { useState } from 'react';
+import { useCart } from '@/context/CartContext';
 
 const Header: React.FC = () => {
   const { cartItems } = useCart();
@@ -18,7 +18,7 @@ const Header: React.FC = () => {
 
   return (
     <>
-      {/* Overlay (appears when menu is open) */}
+      {/* Overlay (when menu is open) */}
       {menuOpen && (
         <div 
           className="fixed inset-0 bg-black bg-opacity-50 z-40 transition-opacity duration-300"
@@ -26,20 +26,18 @@ const Header: React.FC = () => {
         />
       )}
 
+      {/* Header */}
       <header
         className="
-        flex
-        justify-between
-        items-center
-        p-8
-        text-white
-        shadow-xl
-        bg-gradient-to-r 
-        from-pink-300 
-        via-fuchsia-200 
-        to-rose-300
-        relative
-        z-50
+          flex
+          justify-between
+          items-center
+          p-8
+          text-white
+          shadow-xl
+          bg-pink-300  /* SOLID PINK */
+          relative
+          z-50
         "
       >
         {/* Left Section - Hamburger Menu */}
@@ -76,22 +74,30 @@ const Header: React.FC = () => {
       </header>
 
       {/* Sidebar Menu */}
-      <div className={`fixed top-0 left-0 w-64 h-full shadow-lg transform ${menuOpen ? "translate-x-0" : "-translate-x-full"} transition-transform duration-300 ease-in-out z-50 bg-gradient-to-r from-pink-300 to-fuchsia-200 text-white`}>
-        <div className="flex justify-between items-center p-4 border-b">
-          <h2 className="text-xl font-bold text-gray-800"style={{ fontFamily: "'Caveat', cursive" }}>So much to see</h2>
-          <button onClick={closeMenu} className="text-gray-600 text-2xl">
-            <FontAwesomeIcon icon={faTimes} />
+      <div className={`fixed top-0 left-0 w-80 h-full shadow-lg transform ${menuOpen ? "translate-x-0" : "-translate-x-full"} transition-transform duration-300 ease-in-out z-50 bg-pink-200 text-white rounded-r-3xl`}>
+        <div className="flex justify-between items-center p-6 border-b border-pink-300">
+          <h2 className="text-2xl font-bold text-gray-800" style={{ fontFamily: "'Caveat', cursive" }}>
+            ✨ Menu ✨
+          </h2>
+          <button onClick={closeMenu} className="text-gray-800">
+            <FontAwesomeIcon icon={faTimes} size="lg" />
           </button>
         </div>
-        <nav className="p-4 text-lg">
+        <nav className="p-6 space-y-4">
           <Link href="/about">
-            <div className="block px-6 py-3 text-white hover:bg-gray-200 rounded cursor-pointer drop-shadow-[1px_1px_1px_rgba(0,0,0,0.6)]"style={{ fontFamily: "'Caveat', cursive" }}>About Us</div>
+            <div className="block px-6 py-4 text-gray-700 text-2xl hover:bg-pink-100 rounded-xl cursor-pointer transition-all duration-200 hover:translate-x-2" style={{ fontFamily: "'Caveat', cursive" }}>
+              🌸 About Us
+            </div>
           </Link>
           <Link href="/form">
-            <div className="block px-4 py-3 text-white hover:bg-gray-200 rounded cursor-pointer drop-shadow-[1px_1px_1px_rgba(0,0,0,0.6)]"style={{ fontFamily: "'Caveat', cursive" }}>Form</div>
+            <div className="block px-6 py-4 text-gray-700 text-2xl hover:bg-pink-100 rounded-xl cursor-pointer transition-all duration-200 hover:translate-x-2" style={{ fontFamily: "'Caveat', cursive" }}>
+              📝 Form
+            </div>
           </Link>
           <Link href="/shop">
-            <div className="block px-4 py-3 text-white hover:bg-gray-200 rounded cursor-pointer drop-shadow-[1px_1px_1px_rgba(0,0,0,0.6)]"style={{ fontFamily: "'Caveat', cursive" }}>Shop</div>
+            <div className="block px-6 py-4 text-gray-700 text-2xl hover:bg-pink-100 rounded-xl cursor-pointer transition-all duration-200 hover:translate-x-2" style={{ fontFamily: "'Caveat', cursive" }}>
+              🛍️ Shop
+            </div>
           </Link>
         </nav>
       </div>

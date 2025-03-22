@@ -18,25 +18,25 @@ function useSortedFilteredProducts({
   const sortedAndFilteredProducts = useMemo(() => {
     let filteredProducts = products;
   
-    // Filter by category if it's not 'All'
+    
     if (category !== 'All') {
       filteredProducts = filteredProducts.filter(product => product.category === category);
     }
   
-    // Filter by search query
+    
     if (searchQuery) {
       filteredProducts = filteredProducts.filter(product =>
         product.namn.toLowerCase().includes(searchQuery.toLowerCase())
       );
     }
   
-    // Filter by search query
+   
     filteredProducts = filteredProducts.filter((product: Product) =>
       product.namn && product.namn.toLowerCase().includes(searchQuery.toLowerCase()));
   console.log("Filtered Products by Category:", filteredProducts);
 console.log("Filtered Products by Search:", filteredProducts);
 
-    // Sort products
+    
     switch (sortOrder) {
       case 'latest':
         filteredProducts.sort((a: Product, b: Product) => b.id - a.id);

@@ -82,7 +82,7 @@ const HomePage = () => {
 
    
       <section className="py-8 px-4 bg-gradient-to-r from-pink-100 to-pink-50">
-        <h2 className="text-center text-2xl md:text-3xl font-bold mb-6" style={{ fontFamily: "'Caveat', cursive" }}>Featured Picks</h2>
+        <h2 className="text-center text-4xl md:text-5xl font-bold mb-6" style={{ fontFamily: "'Caveat', cursive" }}>💕Featured Picks 💕 </h2>
         <div className="max-w-6xl mx-auto">
           <ProductList
             products={products}

@@ -1,4 +1,4 @@
-// pages/products/[category]/[id].tsx
+
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import React, { useState, useEffect } from 'react';
 import ProductDetail from '../../../component/ProduktDetail';
