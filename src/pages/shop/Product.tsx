@@ -64,13 +64,13 @@ normalizedProducts.forEach(product => {
     <div className="min-h-screen text-gray-800 bg-pink-100" >
 
     {/* Hero Section */}
-    <div className="relative h-[60vh] w-full flex items-center justify-center" style={{ 
+   
+      <div className="container mx-auto w-full">
+       <div className="relative h-[60vh] w-full flex items-center justify-center" style={{ 
     backgroundImage: `url('/heroshop.png')`,
     backgroundPosition: 'center',
     backgroundSize: 'cover'
     }}>
-      <div className="container mx-auto">
-      {/* You can add any hero content here if needed */}
       </div>
     </div>
 

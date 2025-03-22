@@ -1,5 +1,6 @@
 import React from 'react';
 import { ContactFormData } from '../../models/ContactFormData';
+import Image from 'next/image';
 
 interface MossaFormProps {
     formData: ContactFormData;
@@ -26,15 +27,12 @@ const MossaForm: React.FC<MossaFormProps> = ({ formData, handleChange }) => {
 
     return (
         <div className="p-4 md:p-6" style={{ fontFamily: '"Comic Sans MS", cursive' }}>
-            {/* Title */}
             <h2 className="text-center text-3xl md:text-4xl font-extrabold text-pink-600 mb-6 uppercase tracking-widest">
                 Let's make your lit beanie!
             </h2>
             <p className="text-center text-gray-700 italic mb-8">
                 Find your totally perfect style!
             </p>
-
-            {/* 1. Color Selection */}
             <div className="mb-8">
                 <label className="block text-pink-800 text-lg font-extrabold uppercase mb-2 tracking-wider">
                     1. Pick Your Fave Colors!
@@ -97,7 +95,7 @@ const MossaForm: React.FC<MossaFormProps> = ({ formData, handleChange }) => {
                                 className="hidden"
                             />
                             <div className="w-24 h-24 relative mb-3">
-                                <img
+                                <Image
                                     src={mossa.imgSrc}
                                     alt={mossa.label}
                                     className={`
@@ -113,8 +111,6 @@ const MossaForm: React.FC<MossaFormProps> = ({ formData, handleChange }) => {
                     ))}
                 </div>
             </div>
-
-            {/* 3. Yarn Selection */}
             <div className="mb-6">
                 <label className="block text-pink-800 text-base sm:text-lg font-extrabold uppercase mb-2 tracking-wider">
                     3. Pick Your Yarn
@@ -142,7 +138,6 @@ const MossaForm: React.FC<MossaFormProps> = ({ formData, handleChange }) => {
                 </div>
             </div>
 
-            {/* 4. Width & Length */}
             <div className="mb-6">
                 <label className="block text-pink-800 text-lg font-extrabold uppercase mb-2 tracking-wider">
                     4. Width (OMG!)
@@ -168,7 +163,6 @@ const MossaForm: React.FC<MossaFormProps> = ({ formData, handleChange }) => {
                 />
             </div>
 
-            {/* 6. Comments */}
             <textarea
                 name="comment"
                 value={formData.comment ?? ''}

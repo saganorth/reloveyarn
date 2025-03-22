@@ -1,6 +1,6 @@
 import React from 'react';
 import { ContactFormData } from '../../models/ContactFormData';
-
+import Image from 'next/image';
 
 
 interface FiltFormProps {
@@ -28,7 +28,6 @@ const FiltForm: React.FC<FiltFormProps> = ({ formData, handleChange }) => {
     };
 
 
-    // Call validation on render
     validateForm();
     const handleColorCheckbox = (
         e: React.ChangeEvent<HTMLInputElement>,
@@ -50,14 +49,12 @@ const FiltForm: React.FC<FiltFormProps> = ({ formData, handleChange }) => {
             className="p-4 md:p-6"
             style={{ fontFamily: '"Comic Sans MS", cursive' }} 
         >
-            {/* Title */}
             <h2 className="text-center text-3xl md:text-4xl font-extrabold text-pink-600 mb-6 uppercase tracking-widest">
                 Let's make your fab blanket!
             </h2>
             <p className="text-center text-gray-700 italic mb-8">
                 Find your totally perfect style!
             </p>
-            {/* 1. Color Selection */}
             <div className="mb-8">
                 <label
                     htmlFor="color"
@@ -178,7 +175,7 @@ const FiltForm: React.FC<FiltFormProps> = ({ formData, handleChange }) => {
             className="hidden"
             />
             <div className="w-24 h-24 relative mb-3"> 
-                <img
+                <Image
                 src={filt.imgSrc}
                 alt={filt.label}
                 className={`
@@ -274,7 +271,6 @@ const FiltForm: React.FC<FiltFormProps> = ({ formData, handleChange }) => {
               </div>
           </div>
       
-          {/* 4) Width */}
           <div className="mb-6">
             <label
               htmlFor="width"
@@ -316,7 +312,6 @@ const FiltForm: React.FC<FiltFormProps> = ({ formData, handleChange }) => {
             </div>
           </div>
       
-          {/* 5) Length */}
           <div className="mb-6">
             <label
               htmlFor="length"
@@ -345,7 +340,6 @@ const FiltForm: React.FC<FiltFormProps> = ({ formData, handleChange }) => {
             />
              <span className="text-sm text-pink-600 font-bold">cm</span>
       
-            {/* 6. Comments */}
             <div className="mb-6">
               <label
                 htmlFor="comment"

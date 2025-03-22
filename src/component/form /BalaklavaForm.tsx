@@ -1,5 +1,6 @@
 import React from 'react';
 import { ContactFormData } from '../../models/ContactFormData';
+import Image from 'next/image';
 
 interface BalaklavaFormProps {
     formData: ContactFormData;
@@ -23,7 +24,6 @@ const BalaklavaForm: React.FC<BalaklavaFormProps> = ({ formData, handleChange })
 
     return (
         <div className="p-4 md:p-6" style={{ fontFamily: '"Comic Sans MS", cursive' }}>
-            {/* Title */}
             <h2 className="text-center text-3xl md:text-4xl font-extrabold text-pink-600 mb-6 uppercase tracking-widest">
                 Let's make your fab balaclava!
             </h2>
@@ -31,7 +31,6 @@ const BalaklavaForm: React.FC<BalaklavaFormProps> = ({ formData, handleChange })
                 Find your totally perfect style!
             </p>
 
-            {/* 1. Color Selection */}
             <div className="mb-8">
                 <label className="block text-pink-800 text-lg font-extrabold uppercase mb-2 tracking-wider">
                     1. Pick Your Fave Colors!
@@ -72,7 +71,6 @@ const BalaklavaForm: React.FC<BalaklavaFormProps> = ({ formData, handleChange })
                 </div>
             </div>
 
-            {/* 2. Type Selection */}
             <div className="mb-8">
                 <label className="block text-pink-800 text-lg font-extrabold uppercase mb-4 tracking-wider">
                     2. Which Balaclava Is Your Match?
@@ -96,7 +94,7 @@ const BalaklavaForm: React.FC<BalaklavaFormProps> = ({ formData, handleChange })
                                 className="hidden"
                             />
                             <div className="w-24 h-24 relative mb-3">
-                                <img
+                                <Image
                                     src={bala.imgSrc}
                                     alt={bala.label}
                                     className={`
@@ -113,7 +111,6 @@ const BalaklavaForm: React.FC<BalaklavaFormProps> = ({ formData, handleChange })
                 </div>
             </div>
 
-            {/* 3. Yarn Selection */}
             <div className="mb-6">
                 <label className="block text-pink-800 text-base sm:text-lg font-extrabold uppercase mb-2 tracking-wider">
                     3. Pick Your Yarn
@@ -143,7 +140,6 @@ const BalaklavaForm: React.FC<BalaklavaFormProps> = ({ formData, handleChange })
                 </div>
             </div>
 
-            {/* 4. Width & Length */}
             <div className="mb-6">
                 <label className="block text-pink-800 text-lg font-extrabold uppercase mb-2 tracking-wider">
                     4. Width (OMG!)
@@ -155,7 +151,6 @@ const BalaklavaForm: React.FC<BalaklavaFormProps> = ({ formData, handleChange })
                 <input type="text" name="length" value={formData.measurements.length} onChange={handleChange} className="w-1/3 py-2 px-3 border-2 border-pink-300 rounded-full" required />
             </div>
 
-            {/* 6. Comments */}
             <textarea name="comment" value={formData.comment ?? ''} onChange={handleChange} className="w-full py-2 px-3 border-2 border-pink-300 rounded-3xl focus:outline-none focus:ring-2 focus:ring-pink-200 text-gray-700 font-semibold" rows={3} placeholder="Spill the tea, bestie!" required></textarea>
         </div>
     );

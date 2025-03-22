@@ -1,5 +1,6 @@
 import React from 'react';
 import { ContactFormData } from '../../models/ContactFormData';
+import Image from 'next/image';
 
 interface BagFormProps {
     formData: ContactFormData;
@@ -100,7 +101,7 @@ const BagForm: React.FC<BagFormProps> = ({ formData, handleChange }) => {
                                 className="hidden"
                             />
                             <div className="w-24 h-24 relative mb-3">
-                                <img
+                                <Image
                                     src={bag.imgSrc}
                                     alt={bag.label}
                                     className={`
