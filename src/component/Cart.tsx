@@ -124,15 +124,7 @@ const Cart = () => {
                   </div>
 
                   {/* Remove button */}
-                  <button
-                    onClick={() => removeFromCart(item.id)}
-                    className="
-                      text-s 
-                      text-black
-                      hover:text-red-500
-                      font-bold
-                    "
-                  >
+                  <button onClick={() => removeFromCart(String(item.id))}>
                     X
                   </button>
                 </li>

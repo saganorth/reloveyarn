@@ -44,7 +44,6 @@ normalizedProducts.forEach(product => {
    };
  
   useEffect(() => {
-    console.log("Normalized Products:", products);
     fetchProducts();
   }, []);
 
