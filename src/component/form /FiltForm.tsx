@@ -50,7 +50,7 @@ const FiltForm: React.FC<FiltFormProps> = ({ formData, handleChange }) => {
             style={{ fontFamily: '"Comic Sans MS", cursive' }} 
         >
             <h2 className="text-center text-3xl md:text-4xl font-extrabold text-pink-600 mb-6 uppercase tracking-widest">
-                Let's make your fab blanket!
+            Let&apos;s make your fab blanket!
             </h2>
             <p className="text-center text-gray-700 italic mb-8">
                 Find your totally perfect style!

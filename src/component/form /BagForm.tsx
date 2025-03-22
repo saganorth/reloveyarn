@@ -30,7 +30,7 @@ const BagForm: React.FC<BagFormProps> = ({ formData, handleChange }) => {
         <div className="p-4 md:p-6" style={{ fontFamily: '"Comic Sans MS", cursive' }}>
             {/* Title */}
             <h2 className="text-center text-3xl md:text-4xl font-extrabold text-pink-600 mb-6 uppercase tracking-widest">
-                Let's make your IT bag!
+            Let&apos;s make your IT bag!
             </h2>
             <p className="text-center text-gray-700 italic mb-8">
                 Find your totally perfect style!

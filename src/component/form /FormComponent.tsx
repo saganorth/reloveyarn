@@ -94,7 +94,7 @@ const FormComponent: React.FC<FormComponentProps> = ({ formData, setFormData, ha
 
       <div className="mb-4 bg-white p-4 rounded-2xl border-2 border-pink-200 shadow-md">
         <h3 className="text-xl md:text-2xl font-bold mb-2 text-pink-700 uppercase tracking-wider">
-          Let's Keep In Touch, Bestie!
+        Let&apos;s Keep In Touch, Bestie!
         </h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-4">
           <div>
