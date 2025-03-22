@@ -1,4 +1,4 @@
-
+// pages/products/[category]/[id].tsx
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import React, { useState, useEffect } from 'react';
 import ProductDetail from '../../../component/ProduktDetail';
@@ -80,7 +80,8 @@ const ProductPage: NextPage<ProductPageProps> = ({ product }) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const response = await fetch('http://localhost:3000/api/products');
+  const baseUrl = process.env.NEXT_PUBLIC_API_BASEURL || 'http://localhost:3000';
+  const response = await fetch(`${baseUrl}/api/products`);
   const productsByCategory = await response.json();
 
   const paths = Object.entries(productsByCategory).flatMap(([category, products]) =>
@@ -96,8 +97,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps<ProductPageProps> = async ({ params }) => {
+  const baseUrl = process.env.NEXT_PUBLIC_API_BASEURL || 'http://localhost:3000';
   const { category, id } = params as { category: string; id: string };
-  const response = await fetch(`http://localhost:3000/api/products`);
+
+  const response = await fetch(`${baseUrl}/api/products`);
   const data = await response.json();
 
   const product = data[category]?.find((p: Product) => p.id.toString() === id) || null;
@@ -109,5 +112,6 @@ export const getStaticProps: GetStaticProps<ProductPageProps> = async ({ params 
     revalidate: 60, 
   };
 };
+
 
 export default ProductPage;

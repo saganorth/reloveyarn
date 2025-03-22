@@ -43,10 +43,9 @@ normalizedProducts.forEach(product => {
      // Ex: du kan även visa en timeout som gömmer notisen igen
    };
  
-  useEffect(() => {
+   useEffect(() => {
     fetchProducts();
   }, []);
-
   const sortedAndFilteredProducts = useSortedFilteredProducts({ products, sortOrder, searchQuery, category });
 
   if (isLoading) return <div>Loading...</div>;
