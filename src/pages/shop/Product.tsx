@@ -1,5 +1,4 @@
 import React, { useState, useEffect, FC } from 'react';
-import Image from 'next/image';
 import ProductList from '../../component/ProductList';
 import { Product} from '../../models/product';
 import useSortedFilteredProducts from '../../component/useSortedFilteredProducts'; 
